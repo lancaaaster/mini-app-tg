@@ -66,15 +66,28 @@ const ProductCard: React.FC<ProductCardProps> = ({
       } bg-white dark:bg-gray-900 rounded-2xl shadow-md overflow-hidden mb-4 transition hover:shadow-lg`}
     >
       <div className={horizontal ? 'w-1/3 h-full' : 'w-full h-2/5'}>
-        <img
-          src={product.image_url}
-          alt={product.name}
-          className="object-cover w-full h-full"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = '/placeholder-product.jpg';
-          }}
-        />
+        {product.image_url ? (
+          <div className={`${horizontal ? 'w-full h-full' : 'w-full h-2/5'}`}>
+            <img
+              src={product.image_url}
+              alt={product.name}
+              className="object-cover w-full h-full"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = '/placeholder-product.jpg';
+              }}
+            />
+            {product.is_popular && (
+              <div className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+                Популярный
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className={`${horizontal ? 'w-full h-full' : 'w-full h-2/5'} bg-gradient-to-br from-green-200 to-blue-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center`}>
+            <span className="text-base font-bold text-gray-700 dark:text-white text-center px-2 line-clamp-2">{product.name}</span>
+          </div>
+        )}
         {!product.is_available && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <span className="text-white font-medium">Нет в наличии</span>

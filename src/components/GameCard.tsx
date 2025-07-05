@@ -23,23 +23,28 @@ const GameCard: React.FC<GameCardProps> = ({ game, showProducts = false, variant
         onClick={handleClick}
       >
         {/* Изображение игры */}
-        <div className="relative w-32 h-24 bg-gray-200 dark:bg-gray-700 flex-shrink-0">
-          <img
-            src={game.image_url}
-            alt={game.name}
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = '/placeholder-game.jpg';
-            }}
-          />
-          {game.is_popular && (
-            <div className="absolute top-1 left-1 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
-              Популярная
-            </div>
-          )}
-        </div>
-
+        {game.image_url ? (
+          <div className="relative w-32 h-24 bg-gray-200 dark:bg-gray-700 flex-shrink-0">
+            <img
+              src={game.image_url}
+              alt={game.name}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = '/placeholder-game.jpg';
+              }}
+            />
+            {game.is_popular && (
+              <div className="absolute top-1 left-1 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+                Популярная
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="relative w-32 h-24 bg-gradient-to-br from-blue-200 to-purple-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center flex-shrink-0">
+            <span className="text-base font-bold text-gray-700 dark:text-white text-center px-2 line-clamp-2">{game.name}</span>
+          </div>
+        )}
         {/* Информация об игре */}
         <div className="p-4 flex-1 flex flex-col justify-between">
           <div>
@@ -75,22 +80,28 @@ const GameCard: React.FC<GameCardProps> = ({ game, showProducts = false, variant
       onClick={handleClick}
     >
       {/* Изображение игры */}
-      <div className="relative aspect-video bg-gray-200 dark:bg-gray-700">
-        <img
-          src={game.image_url}
-          alt={game.name}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = '/placeholder-game.jpg';
-          }}
-        />
-        {game.is_popular && (
-          <div className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
-            Популярная
-          </div>
-        )}
-      </div>
+      {game.image_url ? (
+        <div className="relative aspect-video bg-gray-200 dark:bg-gray-700">
+          <img
+            src={game.image_url}
+            alt={game.name}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = '/placeholder-game.jpg';
+            }}
+          />
+          {game.is_popular && (
+            <div className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+              Популярная
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="relative aspect-video bg-gradient-to-br from-blue-200 to-purple-200 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
+          <span className="text-lg font-bold text-gray-700 dark:text-white text-center px-2 line-clamp-2">{game.name}</span>
+        </div>
+      )}
 
       {/* Информация об игре */}
       <div className="p-4">
