@@ -9,11 +9,13 @@ import toast from 'react-hot-toast';
 interface ProductCardProps {
   product: Product;
   showAddToCart?: boolean;
+  horizontal?: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ 
   product, 
-  showAddToCart = true 
+  showAddToCart = true,
+  horizontal = false,
 }) => {
   const navigate = useNavigate();
   const { addToCart } = useAppStore();
@@ -56,16 +58,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <div className="card cursor-pointer hover:shadow-md transition-shadow duration-200 overflow-hidden">
-      {/* Изображение товара */}
-      <div 
-        className="relative aspect-square bg-gray-200 dark:bg-gray-700"
-        onClick={handleCardClick}
-      >
+    <div
+      className={`${
+        horizontal
+          ? 'flex flex-row w-72 h-32'
+          : 'flex flex-col w-full h-64'
+      } bg-white dark:bg-gray-900 rounded-2xl shadow-md overflow-hidden mb-4 transition hover:shadow-lg`}
+    >
+      <div className={horizontal ? 'w-1/3 h-full' : 'w-full h-2/5'}>
         <img
           src={product.image_url}
           alt={product.name}
-          className="w-full h-full object-cover"
+          className="object-cover w-full h-full"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.src = '/placeholder-product.jpg';
@@ -77,45 +81,31 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         )}
       </div>
-
-      {/* Информация о товаре */}
-      <div className="p-4">
-        <h3 
-          className="text-lg font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2"
-          onClick={handleCardClick}
-        >
-          {product.name}
-        </h3>
-        
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
-          {product.description}
-        </p>
-
-        {/* Рейтинг */}
-        <div className="flex items-center mb-3">
-          <div className="flex items-center mr-2">
+      <div className={`flex flex-col justify-between p-4 ${horizontal ? 'w-2/3' : 'flex-1'}`}>
+        <div>
+          <h3 
+            className="text-base font-semibold text-gray-900 dark:text-white truncate mb-1"
+            onClick={handleCardClick}
+          >
+            {product.name}
+          </h3>
+          <div className="flex items-center gap-1 mb-2">
             {renderStars(product.rating)}
-          </div>
-          <span className="text-sm text-gray-600 dark:text-gray-400">
-            {formatRating(product.rating)} ({formatReviewsCount(product.reviews_count)})
-          </span>
-        </div>
-
-        {/* Цена и кнопка */}
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col">
-            <span className="text-xl font-bold text-gray-900 dark:text-white">
-              {formatPrice(product.price)}
+            <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">
+              {formatRating(product.rating)} ({formatReviewsCount(product.reviews_count)})
             </span>
           </div>
-          
+        </div>
+        <div className="flex items-center justify-between mt-auto">
+          <span className="text-lg font-bold text-blue-600 dark:text-blue-400">
+            {formatPrice(product.price)}
+          </span>
           {showAddToCart && product.is_available && (
             <button
               onClick={handleAddToCart}
-              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+              className="ml-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow transition-colors"
             >
-              <ShoppingCart className="w-4 h-4" />
-              <span className="text-sm font-medium">Купить</span>
+              Купить
             </button>
           )}
         </div>

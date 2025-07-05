@@ -120,4 +120,14 @@ a {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--tg-theme-text-color);
+}
+
+/* Скрытие скроллбара для горизонтальных списков */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
 } 

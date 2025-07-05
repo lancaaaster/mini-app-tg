@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '@/store';
 import GameCard from '@/components/GameCard';
 import ProductCard from '@/components/ProductCard';
+import ProductList from '@/components/ProductList';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { EmptyState, EmptyStateIcons } from '@/components/EmptyState';
-import { ArrowRight, Star, TrendingUp } from 'lucide-react';
+import { ArrowRight, Star, TrendingUp, Fire, Zap } from 'lucide-react';
+import Banner from '@/components/Banner';
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -44,7 +46,16 @@ const HomePage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24">
+      {/* Баннер */}
+      <Banner
+        image="https://cdn.easydonate.shop/banner-example.jpg"
+        title="Brawl Pass на EasyDonate!"
+        subtitle="Покупайте донат для любимых игр быстро и безопасно"
+        buttonText="Купить"
+        onButtonClick={() => navigate('/games')}
+      />
+
       {/* Заголовок */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
@@ -88,39 +99,40 @@ const HomePage: React.FC = () => {
         )}
       </section>
 
-      {/* Популярные товары */}
+      {/* Горячие предложения - горизонтальный список */}
       <section className="mb-12">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2">
-            <Star className="w-6 h-6 text-yellow-500" />
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Популярные товары
-            </h2>
-          </div>
-          {popularGames.length > 0 && (
-            <button
-              onClick={handleViewAllProducts}
-              className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline"
-            >
-              <span>Все товары</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          )}
-        </div>
+        <ProductList
+          products={products.slice(0, 6)}
+          title="🔥 Горячие предложения"
+          variant="horizontal"
+          showViewAll={true}
+          onViewAll={handleViewAllProducts}
+          maxItems={6}
+        />
+      </section>
 
-        {products.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.slice(0, 8).map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        ) : (
-          <EmptyState
-            title="Пока что тут пусто"
-            description="Популярные товары появятся здесь, как только они будут добавлены"
-            icon={EmptyStateIcons.products}
-          />
-        )}
+      {/* Популярные товары - вертикальная сетка */}
+      <section className="mb-12">
+        <ProductList
+          products={products.slice(0, 8)}
+          title="⭐ Популярные товары"
+          variant="vertical"
+          showViewAll={true}
+          onViewAll={handleViewAllProducts}
+          maxItems={8}
+        />
+      </section>
+
+      {/* Новинки - горизонтальный список */}
+      <section className="mb-12">
+        <ProductList
+          products={products.slice(0, 4)}
+          title="⚡ Новинки"
+          variant="horizontal"
+          showViewAll={true}
+          onViewAll={handleViewAllProducts}
+          maxItems={4}
+        />
       </section>
 
       {/* Преимущества */}

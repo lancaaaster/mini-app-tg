@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { Toaster } from 'react-hot-toast'
+import { setupErrorLogging } from './utils/logger'
 
 // Инициализация Telegram Web App
 declare global {
@@ -18,6 +19,9 @@ if (window.Telegram?.WebApp) {
   window.Telegram.WebApp.ready();
   window.Telegram.WebApp.expand();
 }
+
+// Настройка логирования ошибок
+setupErrorLogging();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
