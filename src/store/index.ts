@@ -76,27 +76,45 @@ export const useAppStore = create<AppState>()(
         set({ isLoading: true });
         
         try {
-          const initData = telegramApp.getInitData();
-          if (!initData) {
-            throw new Error('No init data available');
-          }
+          // Для тестирования используем мок-данные
+          const mockUser = {
+            id: 123456789,
+            first_name: 'Тестовый',
+            last_name: 'Пользователь',
+            username: 'test_user',
+            photo_url: 'https://via.placeholder.com/150',
+            balance: 1500,
+            is_premium: false,
+            language_code: 'ru',
+          };
 
-          const response = await apiClient.authenticate(initData);
-          
-          if (response.success && response.data) {
-            localStorage.setItem('auth_token', response.data.token);
-            set({
-              user: response.data.user,
-              isAuthenticated: true,
-            });
-          } else {
-            throw new Error(response.error || 'Authentication failed');
-          }
+          // Имитируем задержку сети
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+          set({
+            user: mockUser,
+            isAuthenticated: true,
+            isLoading: false,
+          });
+
+          // В реальном приложении здесь будет:
+          // const initData = telegramApp.getInitData();
+          // if (!initData) {
+          //   throw new Error('No init data available');
+          // }
+          // const response = await apiClient.authenticate(initData);
+          // if (response.success && response.data) {
+          //   localStorage.setItem('auth_token', response.data.token);
+          //   set({
+          //     user: response.data.user,
+          //     isAuthenticated: true,
+          //   });
+          // } else {
+          //   throw new Error(response.error || 'Authentication failed');
+          // }
         } catch (error) {
           console.error('Authentication error:', error);
-          set({ isAuthenticated: false });
-        } finally {
-          set({ isLoading: false });
+          set({ isAuthenticated: false, isLoading: false });
         }
       },
 
@@ -131,23 +149,83 @@ export const useAppStore = create<AppState>()(
         set({ isLoading: true });
         
         try {
-          const response = await apiClient.getGames();
-          if (response.success && response.data) {
-            set({ games: response.data });
-          }
+          // Мок-данные для игр
+          const mockGames = [
+            {
+              id: 1,
+              name: 'Brawl Stars',
+              description: 'Динамичная игра в жанре MOBA',
+              image_url: 'https://via.placeholder.com/300x200/FF6B6B/FFFFFF?text=Brawl+Stars',
+              is_popular: true,
+              categoryId: 'action',
+            },
+            {
+              id: 2,
+              name: 'Clash Royale',
+              description: 'Стратегическая карточная игра',
+              image_url: 'https://via.placeholder.com/300x200/4ECDC4/FFFFFF?text=Clash+Royale',
+              is_popular: true,
+              categoryId: 'strategy',
+            },
+            {
+              id: 3,
+              name: 'PUBG Mobile',
+              description: 'Королевская битва на мобильных устройствах',
+              image_url: 'https://via.placeholder.com/300x200/45B7D1/FFFFFF?text=PUBG+Mobile',
+              is_popular: false,
+              categoryId: 'battle_royale',
+            },
+            {
+              id: 4,
+              name: 'Minecraft',
+              description: 'Песочница для творчества',
+              image_url: 'https://via.placeholder.com/300x200/96CEB4/FFFFFF?text=Minecraft',
+              is_popular: true,
+              categoryId: 'sandbox',
+            },
+          ];
+
+          // Имитируем задержку сети
+          await new Promise(resolve => setTimeout(resolve, 500));
+
+          set({ games: mockGames, isLoading: false });
         } catch (error) {
           console.error('Error fetching games:', error);
-        } finally {
           set({ isLoading: false });
         }
       },
 
       fetchPopularGames: async () => {
         try {
-          const response = await apiClient.getPopularGames();
-          if (response.success && response.data) {
-            set({ popularGames: response.data });
-          }
+          // Мок-данные для популярных игр
+          const mockPopularGames = [
+            {
+              id: 1,
+              name: 'Brawl Stars',
+              description: 'Динамичная игра в жанре MOBA',
+              image_url: 'https://via.placeholder.com/300x200/FF6B6B/FFFFFF?text=Brawl+Stars',
+              is_popular: true,
+              categoryId: 'action',
+            },
+            {
+              id: 2,
+              name: 'Clash Royale',
+              description: 'Стратегическая карточная игра',
+              image_url: 'https://via.placeholder.com/300x200/4ECDC4/FFFFFF?text=Clash+Royale',
+              is_popular: true,
+              categoryId: 'strategy',
+            },
+            {
+              id: 4,
+              name: 'Minecraft',
+              description: 'Песочница для творчества',
+              image_url: 'https://via.placeholder.com/300x200/96CEB4/FFFFFF?text=Minecraft',
+              is_popular: true,
+              categoryId: 'sandbox',
+            },
+          ];
+
+          set({ popularGames: mockPopularGames });
         } catch (error) {
           console.error('Error fetching popular games:', error);
         }
@@ -157,13 +235,88 @@ export const useAppStore = create<AppState>()(
         set({ isLoading: true });
         
         try {
-          const response = await apiClient.getProducts(gameId, filters);
-          if (response.success && response.data) {
-            set({ products: response.data.data });
-          }
+          // Мок-данные для товаров
+          const mockProducts = [
+            {
+              id: 1,
+              name: 'Brawl Pass',
+              description: 'Премиум подписка с эксклюзивными наградами',
+              price: 299,
+              image_url: 'https://via.placeholder.com/300x200/FF6B6B/FFFFFF?text=Brawl+Pass',
+              rating: 4.8,
+              reviews_count: 1250,
+              categoryId: 1,
+              gameId: gameId,
+              in_stock: true,
+            },
+            {
+              id: 2,
+              name: '1000 Gems',
+              description: 'Внутриигровая валюта для покупок',
+              price: 199,
+              image_url: 'https://via.placeholder.com/300x200/4ECDC4/FFFFFF?text=1000+Gems',
+              rating: 4.6,
+              reviews_count: 890,
+              categoryId: 1,
+              gameId: gameId,
+              in_stock: true,
+            },
+            {
+              id: 3,
+              name: 'Premium Skin Pack',
+              description: 'Набор эксклюзивных скинов',
+              price: 499,
+              image_url: 'https://via.placeholder.com/300x200/45B7D1/FFFFFF?text=Premium+Skin+Pack',
+              rating: 4.9,
+              reviews_count: 567,
+              categoryId: 2,
+              gameId: gameId,
+              in_stock: true,
+            },
+            {
+              id: 4,
+              name: 'Battle Pass',
+              description: 'Доступ к сезонным наградам',
+              price: 399,
+              image_url: 'https://via.placeholder.com/300x200/96CEB4/FFFFFF?text=Battle+Pass',
+              rating: 4.7,
+              reviews_count: 2340,
+              categoryId: 1,
+              gameId: gameId,
+              in_stock: true,
+            },
+            {
+              id: 5,
+              name: '5000 Coins',
+              description: 'Большой пакет игровой валюты',
+              price: 799,
+              image_url: 'https://via.placeholder.com/300x200/FFE66D/000000?text=5000+Coins',
+              rating: 4.5,
+              reviews_count: 1234,
+              categoryId: 1,
+              gameId: gameId,
+              in_stock: true,
+            },
+            {
+              id: 6,
+              name: 'Legendary Chest',
+              description: 'Сундук с легендарными предметами',
+              price: 599,
+              image_url: 'https://via.placeholder.com/300x200/FF6B9D/FFFFFF?text=Legendary+Chest',
+              rating: 4.8,
+              reviews_count: 789,
+              categoryId: 3,
+              gameId: gameId,
+              in_stock: true,
+            },
+          ];
+
+          // Имитируем задержку сети
+          await new Promise(resolve => setTimeout(resolve, 300));
+
+          set({ products: mockProducts, isLoading: false });
         } catch (error) {
           console.error('Error fetching products:', error);
-        } finally {
           set({ isLoading: false });
         }
       },
@@ -181,10 +334,71 @@ export const useAppStore = create<AppState>()(
 
       fetchOrders: async () => {
         try {
-          const response = await apiClient.getUserOrders();
-          if (response.success && response.data) {
-            set({ orders: response.data });
-          }
+          // Мок-данные для заказов
+          const mockOrders = [
+            {
+              id: 1,
+              user_id: 123456789,
+              total_price: 299,
+              status: 'completed',
+              created_at: '2024-01-15T10:30:00Z',
+              items: [
+                {
+                  id: 1,
+                  product_id: 1,
+                  quantity: 1,
+                  price: 299,
+                  product: {
+                    id: 1,
+                    name: 'Brawl Pass',
+                    image_url: 'https://via.placeholder.com/100x100/FF6B6B/FFFFFF?text=BP',
+                  }
+                }
+              ]
+            },
+            {
+              id: 2,
+              user_id: 123456789,
+              total_price: 199,
+              status: 'processing',
+              created_at: '2024-01-14T15:45:00Z',
+              items: [
+                {
+                  id: 2,
+                  product_id: 2,
+                  quantity: 1,
+                  price: 199,
+                  product: {
+                    id: 2,
+                    name: '1000 Gems',
+                    image_url: 'https://via.placeholder.com/100x100/4ECDC4/FFFFFF?text=Gems',
+                  }
+                }
+              ]
+            },
+            {
+              id: 3,
+              user_id: 123456789,
+              total_price: 499,
+              status: 'pending',
+              created_at: '2024-01-13T09:20:00Z',
+              items: [
+                {
+                  id: 3,
+                  product_id: 3,
+                  quantity: 1,
+                  price: 499,
+                  product: {
+                    id: 3,
+                    name: 'Premium Skin Pack',
+                    image_url: 'https://via.placeholder.com/100x100/45B7D1/FFFFFF?text=Skin',
+                  }
+                }
+              ]
+            },
+          ];
+
+          set({ orders: mockOrders });
         } catch (error) {
           console.error('Error fetching orders:', error);
         }
