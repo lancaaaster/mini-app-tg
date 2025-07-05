@@ -74,7 +74,7 @@ export const useAppStore = create<AppState>()(
       // Аутентификация
       authenticate: async () => {
         set({ isLoading: true });
-        
+        console.log('AUTH START');
         try {
           // Для тестирования используем мок-данные
           const mockUser = {
@@ -82,39 +82,25 @@ export const useAppStore = create<AppState>()(
             first_name: 'Тестовый',
             last_name: 'Пользователь',
             username: 'test_user',
-            photo_url: 'https://via.placeholder.com/150',
+            photo_url: '', // убираем картинку
             balance: 1500,
             is_premium: false,
             language_code: 'ru',
           };
 
           // Имитируем задержку сети
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          await new Promise(resolve => setTimeout(resolve, 500));
 
           set({
             user: mockUser,
             isAuthenticated: true,
             isLoading: false,
           });
-
-          // В реальном приложении здесь будет:
-          // const initData = telegramApp.getInitData();
-          // if (!initData) {
-          //   throw new Error('No init data available');
-          // }
-          // const response = await apiClient.authenticate(initData);
-          // if (response.success && response.data) {
-          //   localStorage.setItem('auth_token', response.data.token);
-          //   set({
-          //     user: response.data.user,
-          //     isAuthenticated: true,
-          //   });
-          // } else {
-          //   throw new Error(response.error || 'Authentication failed');
-          // }
+          console.log('AUTH END', get());
         } catch (error) {
           console.error('Authentication error:', error);
           set({ isAuthenticated: false, isLoading: false });
+          console.log('AUTH ERROR', error);
         }
       },
 
