@@ -155,7 +155,7 @@ export const useAppStore = create<AppState>()(
               id: 1,
               name: 'Brawl Stars',
               description: 'Динамичная игра в жанре MOBA',
-              image_url: 'https://via.placeholder.com/300x200/FF6B6B/FFFFFF?text=Brawl+Stars',
+              image_url: '',
               is_popular: true,
               categoryId: 'action',
             },
@@ -163,7 +163,7 @@ export const useAppStore = create<AppState>()(
               id: 2,
               name: 'Clash Royale',
               description: 'Стратегическая карточная игра',
-              image_url: 'https://via.placeholder.com/300x200/4ECDC4/FFFFFF?text=Clash+Royale',
+              image_url: '',
               is_popular: true,
               categoryId: 'strategy',
             },
@@ -171,7 +171,7 @@ export const useAppStore = create<AppState>()(
               id: 3,
               name: 'PUBG Mobile',
               description: 'Королевская битва на мобильных устройствах',
-              image_url: 'https://via.placeholder.com/300x200/45B7D1/FFFFFF?text=PUBG+Mobile',
+              image_url: '',
               is_popular: false,
               categoryId: 'battle_royale',
             },
@@ -179,7 +179,7 @@ export const useAppStore = create<AppState>()(
               id: 4,
               name: 'Minecraft',
               description: 'Песочница для творчества',
-              image_url: 'https://via.placeholder.com/300x200/96CEB4/FFFFFF?text=Minecraft',
+              image_url: '',
               is_popular: true,
               categoryId: 'sandbox',
             },
@@ -203,7 +203,7 @@ export const useAppStore = create<AppState>()(
               id: 1,
               name: 'Brawl Stars',
               description: 'Динамичная игра в жанре MOBA',
-              image_url: 'https://via.placeholder.com/300x200/FF6B6B/FFFFFF?text=Brawl+Stars',
+              image_url: '',
               is_popular: true,
               categoryId: 'action',
             },
@@ -211,7 +211,7 @@ export const useAppStore = create<AppState>()(
               id: 2,
               name: 'Clash Royale',
               description: 'Стратегическая карточная игра',
-              image_url: 'https://via.placeholder.com/300x200/4ECDC4/FFFFFF?text=Clash+Royale',
+              image_url: '',
               is_popular: true,
               categoryId: 'strategy',
             },
@@ -219,7 +219,7 @@ export const useAppStore = create<AppState>()(
               id: 4,
               name: 'Minecraft',
               description: 'Песочница для творчества',
-              image_url: 'https://via.placeholder.com/300x200/96CEB4/FFFFFF?text=Minecraft',
+              image_url: '',
               is_popular: true,
               categoryId: 'sandbox',
             },
@@ -242,7 +242,7 @@ export const useAppStore = create<AppState>()(
               name: 'Brawl Pass',
               description: 'Премиум подписка с эксклюзивными наградами',
               price: 299,
-              image_url: 'https://via.placeholder.com/300x200/FF6B6B/FFFFFF?text=Brawl+Pass',
+              image_url: '',
               rating: 4.8,
               reviews_count: 1250,
               categoryId: 1,
@@ -254,7 +254,7 @@ export const useAppStore = create<AppState>()(
               name: '1000 Gems',
               description: 'Внутриигровая валюта для покупок',
               price: 199,
-              image_url: 'https://via.placeholder.com/300x200/4ECDC4/FFFFFF?text=1000+Gems',
+              image_url: '',
               rating: 4.6,
               reviews_count: 890,
               categoryId: 1,
@@ -266,7 +266,7 @@ export const useAppStore = create<AppState>()(
               name: 'Premium Skin Pack',
               description: 'Набор эксклюзивных скинов',
               price: 499,
-              image_url: 'https://via.placeholder.com/300x200/45B7D1/FFFFFF?text=Premium+Skin+Pack',
+              image_url: '',
               rating: 4.9,
               reviews_count: 567,
               categoryId: 2,
@@ -278,7 +278,7 @@ export const useAppStore = create<AppState>()(
               name: 'Battle Pass',
               description: 'Доступ к сезонным наградам',
               price: 399,
-              image_url: 'https://via.placeholder.com/300x200/96CEB4/FFFFFF?text=Battle+Pass',
+              image_url: '',
               rating: 4.7,
               reviews_count: 2340,
               categoryId: 1,
@@ -290,7 +290,7 @@ export const useAppStore = create<AppState>()(
               name: '5000 Coins',
               description: 'Большой пакет игровой валюты',
               price: 799,
-              image_url: 'https://via.placeholder.com/300x200/FFE66D/000000?text=5000+Coins',
+              image_url: '',
               rating: 4.5,
               reviews_count: 1234,
               categoryId: 1,
@@ -302,7 +302,7 @@ export const useAppStore = create<AppState>()(
               name: 'Legendary Chest',
               description: 'Сундук с легендарными предметами',
               price: 599,
-              image_url: 'https://via.placeholder.com/300x200/FF6B9D/FFFFFF?text=Legendary+Chest',
+              image_url: '',
               rating: 4.8,
               reviews_count: 789,
               categoryId: 3,
@@ -351,7 +351,7 @@ export const useAppStore = create<AppState>()(
                   product: {
                     id: 1,
                     name: 'Brawl Pass',
-                    image_url: 'https://via.placeholder.com/100x100/FF6B6B/FFFFFF?text=BP',
+                    image_url: '',
                   }
                 }
               ]
@@ -371,7 +371,7 @@ export const useAppStore = create<AppState>()(
                   product: {
                     id: 2,
                     name: '1000 Gems',
-                    image_url: 'https://via.placeholder.com/100x100/4ECDC4/FFFFFF?text=Gems',
+                    image_url: '',
                   }
                 }
               ]
@@ -391,7 +391,7 @@ export const useAppStore = create<AppState>()(
                   product: {
                     id: 3,
                     name: 'Premium Skin Pack',
-                    image_url: 'https://via.placeholder.com/100x100/45B7D1/FFFFFF?text=Skin',
+                    image_url: '',
                   }
                 }
               ]
