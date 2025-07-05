@@ -49,7 +49,7 @@ const HomePage: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24">
       {/* Баннер */}
       <Banner
-        image="https://cdn.easydonate.shop/banner-example.jpg"
+        image=""
         title="Brawl Pass на EasyDonate!"
         subtitle="Покупайте донат для любимых игр быстро и безопасно"
         buttonText="Купить"
